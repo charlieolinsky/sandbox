@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { SetStateAction } from "react";
 import Square from "./Square";
 
 interface props {
