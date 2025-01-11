@@ -1,9 +1,19 @@
+import { Dispatch, SetStateAction } from "react";
 import Square from "./Square";
 
-export const Row = (props: any) => {
+interface props {
+    pieces: Array<Array<string>>; 
+    setPieces: (value: SetStateAction<string[][]>) => void
+    row_key: number
+    key: number
+}
+
+const Row = (props: props) => {
     const squares = []
-    for (let i = 0; i<8; i++) {
-        squares.push(<Square row_key={props.row_key} sqr_key={i} key={i}/>)
+
+    for (let sqr = 0; sqr<8; sqr++) {
+        let piece = props.pieces[props.row_key][sqr]
+        squares.push(<Square piece={piece} row_key={props.row_key} sqr_key={sqr} key={sqr} />)
     }
     return <div className="grid grid-cols-8">{squares}</div>
 }
