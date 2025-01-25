@@ -13,12 +13,9 @@ const ChessBoard = () => {
         ["wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"],
         ["wr", "wn", "wb", "wq", "wk", "wb", "wn", "wr"],
     ])
-
-
-    const rows = []
-    for(let i = 0; i<8; i++) {
-        rows.push(<Row pieces={getPieces} setPieces={setPieces} row_key={i} key={i}/>)
-    }
+    const rows = getPieces.map((_, rowIndex) => (
+        <Row pieces={getPieces} setPieces={setPieces} row_key={rowIndex} key={rowIndex}/>
+    ))
 
     return (
     <div className="container px-0 mx-0">        

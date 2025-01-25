@@ -13,7 +13,16 @@ const Row = (props: props) => {
 
     for (let sqr = 0; sqr<8; sqr++) {
         let piece = props.pieces[props.row_key][sqr]
-        squares.push(<Square piece={piece} row_key={props.row_key} sqr_key={sqr} key={sqr} />)
+        squares.push(
+            <Square 
+                piece={piece} 
+                pieces={props.pieces} 
+                setPieces={props.setPieces} 
+                row_key={props.row_key} 
+                sqr_key={sqr} 
+                key={sqr} 
+            />
+        )
     }
     return <div className="grid grid-cols-8">{squares}</div>
 }

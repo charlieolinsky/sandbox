@@ -13,12 +13,36 @@ import wk_img from "../assets/img/pieces/wk.png"
 import wr_img from "../assets/img/pieces/wr.png"
 
 import blank from "../assets/img/pieces/blank.png"
+import { SetStateAction, useEffect, useRef, useState } from "react";
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 interface props {
+    pieces: Array<Array<string>>; 
+    setPieces: (value: SetStateAction<string[][]>) => void
     pieceType: string 
+    row_key: number
+    sqr_key: number
     key: number
 }
 const Piece = (props: props) => {
+    const ref = useRef(null)
+    const [dragging, setDragging] = useState<boolean>(false)
+
+    useEffect(() => {
+        if(dragging){
+            console.log("Piece is being dragged: ", dragging)
+        }
+        const el = ref.current
+        if(el){
+            return draggable({
+                element: el,
+                onDragStart: () => setDragging(true),
+                onDrop: () => setDragging(false),
+            })
+        }
+
+
+    }, [])
     
     let pieceImg = ""
     switch(props.pieceType){
@@ -63,9 +87,52 @@ const Piece = (props: props) => {
             break;
     }
 
+    const movePiece = () => {
+        console.log("Move ", props.pieceType)
+
+        const board = props.pieces
+        const row = props.row_key
+        const col = props.sqr_key
+
+        switch(props.pieceType){
+            case "wp":
+                let tmp = board[row-1][col]
+                board[row-1][col] = board[row][col]
+                board[row][col] = tmp
+                break;
+            case "wr":
+                break;
+            case "wn":
+                break;
+            case "wb":
+                break;
+            case "wk":
+                break;
+            case "wq":
+                break;
+            case "bp":
+                break;
+            case "br":
+                break;
+            case "bn":
+                break;
+            case "bb":
+                break;
+            case "bk":
+                break;
+            case "bq":
+                break;
+            default:
+                break;
+    }
+    props.setPieces(board)
+    console.log(board)
+        
+    }
+
     return(
         <div>
-            <img src={pieceImg} className="w-full h-full"></img>
+            <img onClick={movePiece} src={pieceImg} className="w-full h-full"></img>
         </div>
     )
     
