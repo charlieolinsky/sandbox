@@ -20,6 +20,8 @@ interface props {
   pieces: Array<Array<string>>;
   setPieces: (value: SetStateAction<string[][]>) => void;
   pieceType: string;
+  isDragging: boolean;
+  setDragging: (value: SetStateAction<boolean>) => void;
   row_key: number;
   sqr_key: number;
   key: number;
@@ -86,7 +88,9 @@ const Piece = (props: props) => {
   }
 
   const movePiece = () => {
-    console.log("Move ", props.pieceType);
+    let drag = props.isDragging;
+    props.setDragging(drag);
+    console.log("Move: ", props.pieceType, "is dragged ", props.isDragging);
 
     const board = [...props.pieces]; //Never mutate state directly! always ...
     const row = props.row_key;
